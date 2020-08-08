@@ -13,7 +13,7 @@ public class Start implements WebApplicationInitializer {
     @Override
     public void onStartup(ServletContext servletContext) throws ServletException {
         XmlWebApplicationContext context = new XmlWebApplicationContext();
-        context.setConfigLocation("/WEB-INF/mvc-servlet.xml");
+        context.setConfigLocation("WEB-INF/spring/spring.xml");
 
         ServletRegistration.Dynamic dispatcher = servletContext
                 .addServlet("dispatcher", new DispatcherServlet(context));
