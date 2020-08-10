@@ -7,7 +7,7 @@
     <groupId>org.mvc</groupId>
     <artifactId>SpringMVCBundle</artifactId>
     <version>1.0</version>
-    <packaging>war</packaging>
+    <packaging>jar</packaging>
 
     <properties>
         <maven.compiler.source>1.8</maven.compiler.source>
@@ -24,16 +24,23 @@
 
         <dependency>
             <groupId>org.springframework</groupId>
-            <artifactId>spring-webmvc</artifactId>
+            <artifactId>spring-context</artifactId>
             <version>5.2.0.RELEASE</version>
         </dependency>
 
         <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>javax.servlet-api</artifactId>
-            <version>3.1.0</version>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-beans</artifactId>
+            <version>5.2.0.RELEASE</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.osgi</groupId>
+            <artifactId>org.osgi.core</artifactId>
+            <version>6.0.0</version>
             <scope>provided</scope>
         </dependency>
+
 
     </dependencies>
 
@@ -43,54 +50,34 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
             </plugin>
-<!--            <plugin>-->
-<!--                <groupId>org.apache.felix</groupId>-->
-<!--                <artifactId>maven-bundle-plugin</artifactId>-->
-<!--                <version>5.1.1</version>-->
-<!--                <extensions>true</extensions>-->
-<!--                <configuration>-->
-<!--                    <supportedProjectTypes>-->
-<!--                        <supportedProjectType>war</supportedProjectType>-->
-<!--                    </supportedProjectTypes>-->
-<!--                    <instructions>-->
-<!--                        <_wab>src/main/webapp</_wab>-->
-<!--                        <Export-Package>org.bundle.controllers, !*</Export-Package>-->
-<!--                        <Import-Package>-->
-<!--                                    *-->
-<!--                        </Import-Package>-->
-<!--                        <Bundle-ClassPath>-->
-<!--                            WEB-INF/classes-->
-<!--                        </Bundle-ClassPath>-->
-<!--                        <Webapp-Context>/</Webapp-Context>-->
-<!--                        <_removeheaders>-->
-<!--                            Include-Resource,-->
-<!--                            Private-Package,-->
-<!--                            Embed-Dependency,-->
-<!--                            Embed-Transitive,-->
-<!--                            Ignore-Package-->
-<!--                        </_removeheaders>-->
-<!--                        <Bundle-Name>TEST_MVC</Bundle-Name>-->
-<!--                        <Bundle-SymbolicName>TEST_MVC</Bundle-SymbolicName>-->
-<!--                    </instructions>-->
-<!--                </configuration>-->
-<!--                <executions>-->
-<!--                    <execution>-->
-<!--                        <id>generate-manifest</id>-->
-<!--                        <phase>process-classes</phase>-->
-<!--                        <goals>-->
-<!--                            <goal>manifest</goal>-->
-<!--                        </goals>-->
-<!--                    </execution>-->
-<!--                </executions>-->
-<!--            </plugin>-->
-<!--            <plugin>-->
-<!--                <artifactId>maven-war-plugin</artifactId>-->
-<!--                <configuration>-->
-<!--                    <archive>-->
-<!--                        <manifestFile>${project.build.outputDirectory}/META-INF/MANIFEST.MF</manifestFile>-->
-<!--                    </archive>-->
-<!--                </configuration>-->
-<!--            </plugin>-->
+            <plugin>
+                <groupId>org.apache.felix</groupId>
+                <artifactId>maven-bundle-plugin</artifactId>
+                <version>5.1.1</version>
+                <extensions>true</extensions>
+                <configuration>
+                    <supportedProjectTypes>
+                        <supportedProjectType>jar</supportedProjectType>
+                    </supportedProjectTypes>
+                    <instructions>
+<!--                        <Spring-Context>src/main/resources/META-INF/spring/spring.xml;publish-context:=false;create-asynchronously:=true</Spring-Context>-->
+                        <Export-Package>org.bundle.*</Export-Package>
+                        <Import-Package>*</Import-Package>
+                        <Bundle-Name>TEST_MVC</Bundle-Name>
+                        <Bundle-SymbolicName>TEST_MVC</Bundle-SymbolicName>
+                        <Bundle-Activator></Bundle-Activator>
+                    </instructions>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>generate-manifest</id>
+                        <phase>process-classes</phase>
+                        <goals>
+                            <goal>manifest</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
     </build>
 
